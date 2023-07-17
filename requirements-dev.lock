@@ -7,6 +7,7 @@
 #   all-features: false
 
 -e file:.
+annotated-types==0.5.0
 black==23.7.0
 click==8.1.5
 mypy==1.4.1
@@ -14,4 +15,6 @@ mypy-extensions==1.0.0
 packaging==23.1
 pathspec==0.11.1
 platformdirs==3.8.1
+pydantic==2.0.3
+pydantic-core==2.3.0
 typing-extensions==4.7.1

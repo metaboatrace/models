@@ -38,6 +38,7 @@ coverage.xml
 
 # rye environment and artifacts
 .rye/
+.python-version
 .venv/
 
 # IDE - PyCharm

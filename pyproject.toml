@@ -14,7 +14,6 @@ requires-python = ">= 3.8"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-build-backend-path = "src"
 
 [tool.rye]
 managed = true

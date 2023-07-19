@@ -25,7 +25,7 @@ class BoatPerformance(BaseModel):
     trio_rate: float = Field(None, ge=0, le=100)
 
 
-class MotorPerformance:
+class MotorPerformance(BaseModel):
     stadium_tel_code: StadiumTelCode
     recorded_date: date
     number: StrictInt = Field(..., ge=1, le=99)

@@ -10,9 +10,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up Docker
         uses: docker-practice/actions-setup-docker@v1
-      - name: Install dependencies
-        run: |
-          rye deps install
+      - name: Install rye
+        uses: baptiste0928/cargo-install@v2
+        with:
+          crate: rye
+          git: https://github.com/mitsuhiko/rye
+          branch: main
+      - name: Install Dependencies
+        run: rye sync
       - name: Run tests
         run: |
           rye run pytest

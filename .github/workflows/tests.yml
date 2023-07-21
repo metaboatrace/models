@@ -16,6 +16,8 @@ jobs:
           crate: rye
           git: https://github.com/mitsuhiko/rye
           branch: main
+      - name: Fix Python version
+        run: rye pin 3.10
       - name: Install Dependencies
         run: rye sync
       - name: Run tests

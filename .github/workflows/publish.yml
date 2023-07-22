@@ -22,8 +22,5 @@ jobs:
       - name: Fix Python version
         run: rye pin 3.10
       - name: Build and publish
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          rye publish
+          rye publish --token ${{ secrets.PYPI_API_TOKEN }} --yes

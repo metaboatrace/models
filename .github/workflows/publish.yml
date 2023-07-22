@@ -21,6 +21,9 @@ jobs:
           branch: main
       - name: Fix Python version
         run: rye pin 3.10
-      - name: Build and publish
+      - name: Build the package
+        run: |
+          rye build
+      - name: Publish the package
         run: |
           rye publish --token ${{ secrets.PYPI_API_TOKEN }} --yes

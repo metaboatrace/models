@@ -1,3 +1,9 @@
-# boatrace-models
+## 概要
 
-Describe your project here.
+ボートレース関連の開発で用いるモデルのパッケージ
+
+## インストール
+
+```bash
+$ pip install metaboatrace.models
+```

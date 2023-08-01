@@ -1,6 +1,6 @@
 [project]
 name = "metaboatrace.models"
-version = "0.1.0"
+version = "0.2.0"
 description = "Models of Japanese boatrace"
 authors = [
     { name = "k0kishima", email = "okishimaxyz@gmail.com" }

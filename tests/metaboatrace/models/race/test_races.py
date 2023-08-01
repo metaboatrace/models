@@ -8,7 +8,7 @@ from metaboatrace.models.stadium import StadiumTelCode
 
 
 @pytest.mark.parametrize(
-    "race_holding_date,stadium_tel_code,race_number,title,race_lap,deadline_at,is_course_fixed,use_stabilizer,expected",
+    "race_holding_date,stadium_tel_code,race_number,title,number_of_laps,deadline_at,is_course_fixed,use_stabilizer,expected",
     [
         # valid case
         (date.today(), StadiumTelCode.HEIWAJIMA, 1, "Race 1", 3, datetime.now(), True, False, True),
@@ -23,7 +23,7 @@ from metaboatrace.models.stadium import StadiumTelCode
             True,
             False,
             False,
-        ),  # invalid race_lap
+        ),  # invalid number_of_laps
     ],
 )
 def test_race_information(  # type: ignore
@@ -31,7 +31,7 @@ def test_race_information(  # type: ignore
     stadium_tel_code,
     race_number,
     title,
-    race_lap,
+    number_of_laps,
     deadline_at,
     is_course_fixed,
     use_stabilizer,
@@ -42,7 +42,7 @@ def test_race_information(  # type: ignore
         "stadium_tel_code": stadium_tel_code,
         "race_number": race_number,
         "title": title,
-        "race_lap": race_lap,
+        "number_of_laps": number_of_laps,
         "deadline_at": deadline_at,
         "is_course_fixed": is_course_fixed,
         "use_stabilizer": use_stabilizer,
@@ -53,7 +53,7 @@ def test_race_information(  # type: ignore
         assert race_information.stadium_tel_code == data["stadium_tel_code"]
         assert race_information.race_number == data["race_number"]
         assert race_information.title == data["title"]
-        assert race_information.race_lap == data["race_lap"]
+        assert race_information.number_of_laps == data["number_of_laps"]
         assert race_information.deadline_at == data["deadline_at"]
         assert race_information.is_course_fixed == data["is_course_fixed"]
         assert race_information.use_stabilizer == data["use_stabilizer"]

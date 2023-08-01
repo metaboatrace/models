@@ -70,7 +70,7 @@ class _BettingMixin(BaseModel):
 
 class RaceInformation(_RaceIdentifier):
     title: str
-    race_lap: Literal[2, 3]
+    number_of_laps: Literal[2, 3]
     deadline_at: datetime
     is_course_fixed: bool
     use_stabilizer: bool

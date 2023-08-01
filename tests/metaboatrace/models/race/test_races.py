@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 from pydantic import ValidationError
 
-from metaboatrace.models.race import RaceInformation
+from metaboatrace.models.race import RaceEntry, RaceInformation
 from metaboatrace.models.stadium import StadiumTelCode
 
 
@@ -60,3 +60,28 @@ def test_race_information(  # type: ignore
     else:
         with pytest.raises(ValidationError):
             race_information = RaceInformation(**data)
+
+
+valid_entry = {
+    "race_holding_date": date.today(),
+    "stadium_tel_code": StadiumTelCode.HEIWAJIMA,
+    "race_number": 1,
+    "title": "予選",
+    "racer_registration_number": 1234,
+    "is_absent": False,
+    "motor_number": 10,
+    "boat_number": 100,
+    "pit_number": 2,
+}
+
+
+def test_create_race_entry():
+    entry = RaceEntry(**valid_entry)
+    assert entry.race_holding_date == valid_entry["race_holding_date"]
+    assert entry.stadium_tel_code == valid_entry["stadium_tel_code"]
+    assert entry.race_number == valid_entry["race_number"]
+    assert entry.racer_registration_number == valid_entry["racer_registration_number"]
+    assert entry.is_absent == valid_entry["is_absent"]
+    assert entry.motor_number == valid_entry["motor_number"]
+    assert entry.boat_number == valid_entry["boat_number"]
+    assert entry.pit_number == valid_entry["pit_number"]

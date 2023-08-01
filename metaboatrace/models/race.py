@@ -50,7 +50,7 @@ class _RaceIdentifier(BaseModel):
     race_number: StrictInt = Field(..., ge=1, le=12)
 
 
-class _RaceEntryIdentifier(BaseModel):
+class _RaceEntryIdentifier(_RaceIdentifier):
     pit_number: StrictInt = Field(..., ge=1, le=6)
 
 
@@ -77,6 +77,7 @@ class RaceInformation(_RaceIdentifier):
 
 
 class RaceEntry(_RaceEntryIdentifier):
+    racer_registration_number: StrictInt
     is_absent: bool
     motor_number: StrictInt = Field(..., ge=1, le=99)
     boat_number: StrictInt = Field(..., ge=1, le=999)

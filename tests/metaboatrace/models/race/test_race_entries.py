@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from pydantic import ValidationError
 
@@ -9,10 +11,24 @@ from metaboatrace.models.race import (
     StartExhibitionRecord,
     WinningTrick,
 )
+from metaboatrace.models.stadium import StadiumTelCode
+
+base_data = {
+    "race_holding_date": date.today(),
+    "stadium_tel_code": StadiumTelCode.HEIWAJIMA,
+    "race_number": 1,
+}
 
 
 def test_race_entry_valid():  # type: ignore
-    valid_data = {"pit_number": 3, "is_absent": False, "motor_number": 10, "boat_number": 123}
+    valid_data = {
+        **base_data,
+        "pit_number": 3,
+        "racer_registration_number": 1234,
+        "is_absent": False,
+        "motor_number": 10,
+        "boat_number": 123,
+    }
     entry = RaceEntry(**valid_data)  # type: ignore
     assert entry.pit_number == valid_data["pit_number"]
     assert entry.is_absent == valid_data["is_absent"]
@@ -30,6 +46,7 @@ def test_race_entry_valid():  # type: ignore
 )
 def test_race_entry_invalid(pit_number, is_absent, motor_number, boat_number, expected):  # type: ignore
     data = {
+        **base_data,
         "pit_number": pit_number,
         "is_absent": is_absent,
         "motor_number": motor_number,
@@ -44,6 +61,7 @@ def test_race_entry_invalid(pit_number, is_absent, motor_number, boat_number, ex
 
 def test_boat_setting_valid():  # type: ignore
     valid_data = {
+        **base_data,
         "pit_number": 3,
         "tilt": 2.5,
         "is_new_propeller": True,
@@ -66,6 +84,7 @@ def test_boat_setting_valid():  # type: ignore
 )
 def test_boat_setting_invalid(pit_number, tilt, is_new_propeller, motor_parts_exchanges, expected):  # type: ignore
     data = {
+        **base_data,
         "pit_number": pit_number,
         "tilt": tilt,
         "is_new_propeller": is_new_propeller,
@@ -93,6 +112,7 @@ def test_boat_setting_invalid(pit_number, tilt, is_new_propeller, motor_parts_ex
 )
 def test_start_exhibition_record(pit_number, start_course, start_time, expected):  # type: ignore
     data = {
+        **base_data,
         "pit_number": pit_number,
         "start_course": start_course,
         "start_time": start_time,
@@ -119,6 +139,7 @@ def test_start_exhibition_record(pit_number, start_course, start_time, expected)
 )
 def test_circumference_exhibition_record(pit_number, exhibition_time, expected):  # type: ignore
     data = {
+        **base_data,
         "pit_number": pit_number,
         "exhibition_time": exhibition_time,
     }
@@ -157,6 +178,7 @@ def test_race_record(  # type: ignore
     expected,
 ):
     data = {
+        **base_data,
         "pit_number": pit_number,
         "start_course": start_course,
         "arrival": arrival,

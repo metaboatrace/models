@@ -3,12 +3,12 @@ from datetime import date
 import pytest
 from pydantic import ValidationError
 
-from metaboatrace.models.racer import Gender, Racer, RacerCondition
+from metaboatrace.models.racer import Gender, Racer, RacerCondition, RacerRank
 from metaboatrace.models.region import Branch, Prefecture
 
 
 @pytest.mark.parametrize(
-    "last_name,first_name,gender,term,birth_date,height,born_prefecture,branch,expected",
+    "last_name,first_name,gender,term,birth_date,height,born_prefecture,branch,current_rating,expected",
     [
         (
             "泥沼",
@@ -19,6 +19,7 @@ from metaboatrace.models.region import Branch, Prefecture
             170,
             Prefecture.TOKYO,
             Branch.TOKYO,
+            RacerRank.A1,
             True,
         ),  # valid case
         (
@@ -30,6 +31,7 @@ from metaboatrace.models.region import Branch, Prefecture
             170,
             Prefecture.TOKYO,
             Branch.TOKYO,
+            RacerRank.A1,
             False,
         ),  # invalid last_name
         (
@@ -41,6 +43,7 @@ from metaboatrace.models.region import Branch, Prefecture
             170,
             Prefecture.TOKYO,
             Branch.TOKYO,
+            RacerRank.A1,
             False,
         ),  # invalid first_name
         (
@@ -52,6 +55,7 @@ from metaboatrace.models.region import Branch, Prefecture
             170,
             Prefecture.TOKYO,
             Branch.TOKYO,
+            RacerRank.A1,
             False,
         ),  # invalid gender
         (
@@ -63,12 +67,34 @@ from metaboatrace.models.region import Branch, Prefecture
             170,
             Prefecture.TOKYO,
             Branch.TOKYO,
+            RacerRank.A1,
             False,
         ),  # invalid term
+        (
+            "泥沼",
+            "亀之助",
+            Gender.MALE,
+            10,
+            date.today(),
+            170,
+            Prefecture.TOKYO,
+            Branch.TOKYO,
+            "A1",
+            False,
+        ),  # invalid current_rating
     ],
 )
 def test_racer(  # type: ignore
-    last_name, first_name, gender, term, birth_date, height, born_prefecture, branch, expected
+    last_name,
+    first_name,
+    gender,
+    term,
+    birth_date,
+    height,
+    born_prefecture,
+    branch,
+    current_rating,
+    expected,
 ):
     data = {
         "registration_number": 12345,
@@ -80,6 +106,7 @@ def test_racer(  # type: ignore
         "height": height,
         "born_prefecture": born_prefecture,
         "branch": branch,
+        "current_rating": current_rating,
     }
     if expected:
         Racer(**data)

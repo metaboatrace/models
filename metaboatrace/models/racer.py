@@ -29,6 +29,7 @@ class Racer(BaseModel):
     height: Optional[StrictInt]
     born_prefecture: Optional[Prefecture]
     branch: Optional[Branch]
+    current_rating: Optional[RacerRank]
 
 
 class RacerCondition(BaseModel):

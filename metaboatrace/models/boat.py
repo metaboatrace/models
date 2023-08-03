@@ -1,5 +1,6 @@
 from datetime import date
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel, Field, StrictInt
 
@@ -21,13 +22,13 @@ class BoatPerformance(BaseModel):
     stadium_tel_code: StadiumTelCode
     recorded_date: date
     number: StrictInt = Field(..., ge=1, le=999)
-    quinella_rate: float = Field(None, ge=0, le=100)
-    trio_rate: float = Field(None, ge=0, le=100)
+    quinella_rate: Optional[float] = Field(None, ge=0, le=100)
+    trio_rate: Optional[float] = Field(None, ge=0, le=100)
 
 
 class MotorPerformance(BaseModel):
     stadium_tel_code: StadiumTelCode
     recorded_date: date
     number: StrictInt = Field(..., ge=1, le=99)
-    quinella_rate: float = Field(None, ge=0, le=100)
-    trio_rate: float = Field(None, ge=0, le=100)
+    quinella_rate: Optional[float] = Field(None, ge=0, le=100)
+    trio_rate: Optional[float] = Field(None, ge=0, le=100)

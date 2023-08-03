@@ -18,18 +18,22 @@ class RacerRank(Enum):
     B1 = 3
     B2 = 4
 
+    @classmethod
+    def from_string(cls, s: str) -> "RacerRank":
+        return cls.__members__[s]
+
 
 class Racer(BaseModel):
     registration_number: StrictInt
     last_name: str
     first_name: str = ""
-    gender: Optional[Gender]
-    term: Optional[StrictInt]
-    birth_date: Optional[date]
-    height: Optional[StrictInt]
-    born_prefecture: Optional[Prefecture]
-    branch: Optional[Branch]
-    current_rating: Optional[RacerRank]
+    gender: Optional[Gender] = None
+    term: Optional[StrictInt] = None
+    birth_date: Optional[date] = None
+    height: Optional[StrictInt] = None
+    born_prefecture: Optional[Prefecture] = None
+    branch: Optional[Branch] = None
+    current_rating: Optional[RacerRank] = None
 
 
 class RacerCondition(BaseModel):

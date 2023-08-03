@@ -19,7 +19,7 @@ class RacerRank(Enum):
     B2 = 4
 
     @classmethod
-    def from_string(cls, s: str):
+    def from_string(cls, s: str) -> "RacerRank":
         return cls.__members__[s]
 
 

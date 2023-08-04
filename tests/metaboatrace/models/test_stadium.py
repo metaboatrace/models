@@ -7,7 +7,7 @@ from metaboatrace.models.stadium import Event, SeriesGrade, SeriesKind, StadiumT
 
 
 @pytest.mark.parametrize(
-    "stadium_tel_code,starts_on,days,grade,kind,expected",
+    "stadium_tel_code,starts_on,days,grade,kind,title,expected",
     [
         (
             StadiumTelCode.KIRYU,
@@ -15,6 +15,7 @@ from metaboatrace.models.stadium import Event, SeriesGrade, SeriesKind, StadiumT
             5,
             SeriesGrade.SG,
             SeriesKind.ALL_LADIES,
+            "Test Event",
             True,
         ),  # valid case
         (
@@ -23,6 +24,7 @@ from metaboatrace.models.stadium import Event, SeriesGrade, SeriesKind, StadiumT
             2,
             SeriesGrade.SG,
             SeriesKind.ALL_LADIES,
+            "Test Event",
             False,
         ),  # invalid days
         (
@@ -31,21 +33,22 @@ from metaboatrace.models.stadium import Event, SeriesGrade, SeriesKind, StadiumT
             8,
             SeriesGrade.SG,
             SeriesKind.ALL_LADIES,
+            "Test Event",
             False,
         ),  # invalid days
     ],
 )
-def test_event(stadium_tel_code, starts_on, days, grade, kind, expected):  # type: ignore
+def test_event(stadium_tel_code, starts_on, days, grade, kind, title, expected):  # type: ignore
     data = {
         "stadium_tel_code": stadium_tel_code,
         "starts_on": starts_on,
         "days": days,
         "grade": grade,
         "kind": kind,
+        "title": title,
     }
     if expected:
         Event(**data)
     else:
         with pytest.raises(ValidationError):
-            Event(**data)
             Event(**data)

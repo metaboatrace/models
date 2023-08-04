@@ -38,6 +38,10 @@ class SeriesGrade(Enum):
     G3 = 4
     NO_GRADE = 5
 
+    @classmethod
+    def from_string(cls, s: str) -> "SeriesGrade":
+        return cls.__members__[s]
+
 
 class SeriesKind(Enum):
     UNCATEGORIZED = 1
@@ -55,3 +59,4 @@ class Event(BaseModel):
     days: StrictInt = Field(..., ge=3, le=7)
     grade: SeriesGrade
     kind: SeriesKind
+    title: str

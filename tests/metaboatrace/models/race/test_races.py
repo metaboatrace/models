@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 from pydantic import ValidationError
 
-from metaboatrace.models.race import RaceInformation
+from metaboatrace.models.race import RaceInformation, Weather, WeatherCondition
 from metaboatrace.models.stadium import StadiumTelCode
 
 
@@ -60,3 +60,68 @@ def test_race_information(  # type: ignore
     else:
         with pytest.raises(ValidationError):
             race_information = RaceInformation(**data)
+
+
+@pytest.mark.parametrize(
+    "race_holding_date, stadium_tel_code, race_number, in_performance, weather, wavelength, wind_angle, wind_velocity, air_temperature, water_temperature, expected",
+    [
+        # valid case
+        (
+            date.today(),
+            StadiumTelCode.HEIWAJIMA,
+            1,
+            True,
+            Weather.FINE,
+            1.5,
+            90,
+            5.0,
+            25.0,
+            20.0,
+            True,
+        ),
+        # invalid wind_angle
+        (
+            date.today(),
+            StadiumTelCode.HEIWAJIMA,
+            1,
+            True,
+            Weather.FINE,
+            1.5,
+            370,  # 無効な風の角度
+            5.0,
+            25.0,
+            20.0,
+            False,
+        ),
+    ],
+)
+def test_weather_condition(
+    race_holding_date,
+    stadium_tel_code,
+    race_number,
+    in_performance,
+    weather,
+    wavelength,
+    wind_angle,
+    wind_velocity,
+    air_temperature,
+    water_temperature,
+    expected,
+):
+    data = {
+        "race_holding_date": race_holding_date,
+        "stadium_tel_code": stadium_tel_code,
+        "race_number": race_number,
+        "in_performance": in_performance,
+        "weather": weather,
+        "wavelength": wavelength,
+        "wind_angle": wind_angle,
+        "wind_velocity": wind_velocity,
+        "air_temperature": air_temperature,
+        "water_temperature": water_temperature,
+    }
+    if expected:
+        WeatherCondition(**data)
+    else:
+        with pytest.raises(ValidationError):
+            WeatherCondition(**data)

@@ -76,6 +76,16 @@ class RaceInformation(_RaceIdentifier):
     use_stabilizer: bool
 
 
+class WeatherCondition(_RaceIdentifier):
+    in_performance: bool
+    weather: Weather
+    wavelength: Optional[float]
+    wind_angle: Optional[float] = Field(None, ge=0, le=360)
+    wind_velocity: float
+    air_temperature: float
+    water_temperature: float
+
+
 class RaceEntry(_RaceEntryIdentifier):
     racer_registration_number: StrictInt
     is_absent: bool

@@ -121,7 +121,7 @@ def test_racer(  # type: ignore
         (date.today(), 12345, 60, 0.0, True),  # valid case
         (123, 12345, 60, 0.0, False),  # invalid recorded_on
         (date.today(), "12345", 60, 0.0, False),  # invalid racer_registration_number
-        (date.today(), 12345, "60", 0.0, False),  # invalid weight
+        (date.today(), 12345, "六十", 0.0, False),  # invalid weight
         (date.today(), 12345, 60, "invalid", False),  # invalid adjust
     ],
 )

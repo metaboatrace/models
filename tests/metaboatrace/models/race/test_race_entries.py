@@ -78,7 +78,7 @@ def test_boat_setting_valid():  # type: ignore
     "pit_number,tilt,is_new_propeller,motor_parts_exchanges,expected",
     [
         (7, 2.5, True, [], False),  # invalid pit_number
-        (3, 0.4, True, [], False),  # invalid tilt (below lower limit)
+        (3, -0.6, True, [], False),  # invalid tilt (below lower limit)
         (3, 3.1, True, [], False),  # invalid tilt (above upper limit)
     ],
 )

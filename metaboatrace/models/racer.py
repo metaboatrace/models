@@ -39,5 +39,5 @@ class Racer(BaseModel):
 class RacerCondition(BaseModel):
     recorded_on: date
     racer_registration_number: StrictInt
-    weight: StrictInt
+    weight: float
     adjust: float

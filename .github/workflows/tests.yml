@@ -20,6 +20,9 @@ jobs:
         run: rye pin 3.10
       - name: Install Dependencies
         run: rye sync
-      - name: Run tests
+      - name: Run tests with coverage
         run: |
-          rye run pytest
+          rye run pytest --cov=metaboatrace.models tests/
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        if: success()

@@ -7,8 +7,6 @@ authors = [
 ]
 dependencies = [
     "pydantic>=2.0.3",
-    "pytest-cov>=4.1.0",
-    "codecov>=2.1.13",
 ]
 readme = "README.md"
 requires-python = ">= 3.10"
@@ -25,6 +23,8 @@ dev-dependencies = [
     "mypy>=1.4.1",
     "black>=23.7.0",
     "pytest>=7.4.0",
+    "codecov>=2.1.13",
+    "pytest-cov>=4.1.0",
 ]
 
 [tool.hatch.metadata]

@@ -22,7 +22,8 @@ jobs:
         run: rye sync
       - name: Run tests with coverage
         run: |
-          rye run pytest --cov=metaboatrace.models tests/
+          rye run pytest --cov=metaboatrace.models tests --cov-report=xml:coverage.xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
-        if: success()
+        with:
+          file: ./coverage.xml

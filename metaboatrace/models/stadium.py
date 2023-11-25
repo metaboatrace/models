@@ -60,3 +60,8 @@ class Event(BaseModel):
     grade: SeriesGrade
     kind: SeriesKind
     title: str
+
+
+class MotorRenewal(BaseModel):
+    stadium_tel_code: StadiumTelCode
+    date: date

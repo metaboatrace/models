@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from enum import Enum
-from typing import List, Literal, Optional, Tuple
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, StrictInt, field_validator
 
@@ -56,10 +56,10 @@ class _RaceEntryIdentifier(_RaceIdentifier):
 
 class _BettingMixin(BaseModel):
     betting_method: BettingMethod = BettingMethod.TRIFECTA
-    betting_numbers: List[int]
+    betting_numbers: list[int]
 
     @field_validator("betting_numbers")
-    def validate_betting_numbers(cls, betting_numbers: List[int]) -> List[int]:
+    def validate_betting_numbers(cls, betting_numbers: list[int]) -> list[int]:
         if len(betting_numbers) > 3:
             raise ValueError("Betting numbers should have at most 3 elements")
         for betting_number in betting_numbers:
@@ -105,7 +105,7 @@ class CircumferenceExhibitionRecord(_RaceEntryIdentifier):
 class BoatSetting(_RaceEntryIdentifier):
     tilt: float = Field(..., ge=-0.5, le=3.0)
     is_new_propeller: bool
-    motor_parts_exchanges: List[Tuple[MotorParts, StrictInt]]
+    motor_parts_exchanges: list[tuple[MotorParts, StrictInt]]
 
 
 class Odds(_RaceIdentifier, _BettingMixin):

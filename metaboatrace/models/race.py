@@ -103,8 +103,10 @@ class CircumferenceExhibitionRecord(_RaceEntryIdentifier):
 
 
 class BoatSetting(_RaceEntryIdentifier):
-    tilt: float = Field(..., ge=-0.5, le=3.0)
-    is_new_propeller: bool
+    boat_number: Optional[int] = None
+    motor_number: Optional[int] = None
+    tilt: Optional[float] = Field(None, ge=-0.5, le=3.0)
+    is_new_propeller: Optional[bool] = None
     motor_parts_exchanges: list[tuple[MotorParts, StrictInt]]
 
 

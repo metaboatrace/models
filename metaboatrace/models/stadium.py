@@ -1,7 +1,9 @@
 from datetime import date
 from enum import Enum
+from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, Field, StrictInt
+from pydantic import BaseModel, Field, StrictInt, model_validator
+from typing_extensions import Self
 
 
 class StadiumTelCode(Enum):
@@ -65,3 +67,28 @@ class Event(BaseModel):
 class MotorRenewal(BaseModel):
     stadium_tel_code: StadiumTelCode
     date: date
+
+
+class EventHoldingStatus(Enum):
+    OPEN = "open"
+    CANCELED = "canceled"
+    POSTPONED = "postponed"
+
+
+class EventHolding(BaseModel):
+    stadium_tel_code: StadiumTelCode
+    date: date
+    status: EventHoldingStatus
+    progress_day: Optional[int] = None  # HACK: 最終日は-1で表現
+
+    @model_validator(mode="after")
+    def validate_status_and_progress_day(self) -> Self:
+        if self.status == EventHoldingStatus.OPEN:
+            if self.progress_day is None:
+                raise ValueError("progress_day is required when status is OPEN")
+            if self.progress_day not in [-1, 3, 4, 5, 6, 7]:
+                raise ValueError("progress_day must be one of -1, 3, 4, 5, 6, 7")
+        else:
+            if self.progress_day is not None:
+                raise ValueError("progress_day must be None when status is not OPEN")
+        return self

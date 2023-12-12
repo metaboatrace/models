@@ -1,6 +1,6 @@
 [project]
 name = "metaboatrace.models"
-version = "2.1.2"
+version = "2.1.3"
 description = "Models of Japanese boatrace"
 authors = [
     { name = "k0kishima", email = "okishimaxyz@gmail.com" }
@@ -31,7 +31,7 @@ dev-dependencies = [
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["."]
+packages = ["src"]
 
 [tool.mypy]
 python_version = "3.11"
@@ -49,4 +49,4 @@ line-length = 100
 target-version = ['py311']
 
 [tool.pytest.ini_options]
-testpaths = ["tests",]
+testpaths = ["src/tests",]

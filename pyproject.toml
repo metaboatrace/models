@@ -31,7 +31,7 @@ dev-dependencies = [
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["metaboatrace"]
+packages = ["."]
 
 [tool.mypy]
 python_version = "3.11"

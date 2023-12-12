@@ -95,7 +95,7 @@ def test_race_information(  # type: ignore
         ),
     ],
 )
-def test_weather_condition(
+def test_weather_condition(  # type: ignore
     race_holding_date,
     stadium_tel_code,
     race_number,

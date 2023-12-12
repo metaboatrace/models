@@ -30,8 +30,11 @@ dev-dependencies = [
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[tool.hatch.build.targets.wheel]
+packages = ["metaboatrace"]
+
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 check_untyped_defs = true
 ignore_missing_imports = true
 warn_redundant_casts = true
@@ -43,7 +46,7 @@ no_implicit_optional = true
 
 [tool.black]
 line-length = 100
-target-version = ['py310']
+target-version = ['py311']
 
 [tool.pytest.ini_options]
 testpaths = ["tests",]

@@ -77,7 +77,7 @@ class EventHoldingStatus(Enum):
 
 class EventHolding(BaseModel):
     stadium_tel_code: StadiumTelCode
-    date: date
+    date: Optional[date]
     status: EventHoldingStatus
     progress_day: Optional[int] = None  # HACK: 最終日は-1で表現
 

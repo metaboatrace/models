@@ -96,7 +96,7 @@ def test_event(stadium_tel_code, starts_on, days, grade, kind, title, expected):
             StadiumTelCode.TAMAGAWA,
             date.today(),
             EventHoldingStatus.OPEN,
-            2,
+            8,
             True,
         ),  # Invalid progress_day value
         (

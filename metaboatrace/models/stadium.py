@@ -86,8 +86,8 @@ class EventHolding(BaseModel):
         if self.status == EventHoldingStatus.OPEN:
             if self.progress_day is None:
                 raise ValueError("progress_day is required when status is OPEN")
-            if self.progress_day not in [-1, 3, 4, 5, 6, 7]:
-                raise ValueError("progress_day must be one of -1, 3, 4, 5, 6, 7")
+            if self.progress_day not in [-1, 1, 2, 3, 4, 5, 6, 7]:
+                raise ValueError("progress_day must be one of -1, 1, 2, 3, 4, 5, 6, 7")
         else:
             if self.progress_day is not None:
                 raise ValueError("progress_day must be None when status is not OPEN")

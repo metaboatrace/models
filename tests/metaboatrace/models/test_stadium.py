@@ -37,7 +37,7 @@ from metaboatrace.models.stadium import (
         (
             StadiumTelCode.KIRYU,
             date.today(),
-            8,
+            10,
             SeriesGrade.SG,
             SeriesKind.ALL_LADIES,
             "Test Event",

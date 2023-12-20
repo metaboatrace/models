@@ -58,7 +58,11 @@ class SeriesKind(Enum):
 class Event(BaseModel):
     stadium_tel_code: StadiumTelCode
     starts_on: date
-    days: StrictInt = Field(..., ge=3, le=7)
+    # note: 開催自体は最長7日だが、過去のデータをクロールする場合は順延した日数も加算される
+    # 例えば以下
+    # https://boatrace.jp/owpc/pc/race/raceindex?jcd=09&hd=20230513
+    # 開催の最長7日と順延の最長2日を考慮して最大値は9日にする
+    days: StrictInt = Field(..., ge=3, le=9)
     grade: SeriesGrade
     kind: SeriesKind
     title: str

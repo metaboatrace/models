@@ -41,3 +41,10 @@ class RacerCondition(BaseModel):
     racer_registration_number: StrictInt
     weight: float
     adjust: float
+
+
+class RacerPerformance(BaseModel):
+    racer_registration_number: StrictInt
+    aggregated_on: date
+    rate_in_all_stadium: float
+    rate_in_event_going_stadium: float

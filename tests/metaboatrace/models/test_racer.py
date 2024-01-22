@@ -3,7 +3,14 @@ from datetime import date
 import pytest
 from pydantic import ValidationError
 
-from metaboatrace.models.racer import Gender, Racer, RacerCondition, RacerRank
+from metaboatrace.models.racer import (
+    EvaluationPeriodType,
+    Gender,
+    Racer,
+    RacerCondition,
+    RacerRank,
+    RacerRatingEvaluationTerm,
+)
 from metaboatrace.models.region import Branch, Prefecture
 
 
@@ -137,3 +144,29 @@ def test_racer_condition(recorded_on, racer_registration_number, weight, adjust,
     else:
         with pytest.raises(ValidationError):
             RacerCondition(**data)
+
+
+def test_term_initialization() -> None:
+    term = RacerRatingEvaluationTerm(2020, EvaluationPeriodType.FIRST_HALF)
+    assert term.year == 2020
+    assert term.period_type == EvaluationPeriodType.FIRST_HALF
+    assert term.starts_on == date(2020, 5, 1)
+    assert term.ends_on == date(2020, 10, 31)
+
+
+def test_prev_term() -> None:
+    term = RacerRatingEvaluationTerm(2020, EvaluationPeriodType.FIRST_HALF)
+    prev_term = term.prev()
+    assert prev_term.year == 2019
+    assert prev_term.period_type == EvaluationPeriodType.SECOND_HALF
+    assert prev_term.starts_on == date(2019, 11, 1)
+    assert prev_term.ends_on == date(2020, 4, 30)
+
+
+def test_next_term() -> None:
+    term = RacerRatingEvaluationTerm(2020, EvaluationPeriodType.FIRST_HALF)
+    next_term = term.next()
+    assert next_term.year == 2020
+    assert next_term.period_type == EvaluationPeriodType.SECOND_HALF
+    assert next_term.starts_on == date(2020, 11, 1)
+    assert next_term.ends_on == date(2021, 4, 30)

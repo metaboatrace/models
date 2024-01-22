@@ -48,3 +48,39 @@ class RacerPerformance(BaseModel):
     aggregated_on: date
     rate_in_all_stadium: float
     rate_in_event_going_stadium: float
+
+
+class EvaluationPeriodType(Enum):
+    FIRST_HALF = 1
+    SECOND_HALF = 2
+
+
+class RacerRatingEvaluationTerm:
+    FIRST_HALF_START_MONTH = 5
+    SECOND_HALF_START_MONTH = 11
+
+    def __init__(self, year: int, period_type: EvaluationPeriodType):
+        self.year = year
+        self.period_type = period_type
+        self.starts_on, self.ends_on = self._calculate_term_dates()
+
+    def _calculate_term_dates(self) -> tuple[date, date]:
+        if self.period_type == EvaluationPeriodType.FIRST_HALF:
+            starts_on = date(self.year, self.FIRST_HALF_START_MONTH, 1)
+            ends_on = date(self.year, self.SECOND_HALF_START_MONTH - 1, 31)
+        else:
+            starts_on = date(self.year, self.SECOND_HALF_START_MONTH, 1)
+            ends_on = date(self.year + 1, self.FIRST_HALF_START_MONTH - 1, 30)
+        return starts_on, ends_on
+
+    def prev(self) -> "RacerRatingEvaluationTerm":
+        if self.period_type == EvaluationPeriodType.FIRST_HALF:
+            return RacerRatingEvaluationTerm(self.year - 1, EvaluationPeriodType.SECOND_HALF)
+        else:
+            return RacerRatingEvaluationTerm(self.year, EvaluationPeriodType.FIRST_HALF)
+
+    def next(self) -> "RacerRatingEvaluationTerm":
+        if self.period_type == EvaluationPeriodType.FIRST_HALF:
+            return RacerRatingEvaluationTerm(self.year, EvaluationPeriodType.SECOND_HALF)
+        else:
+            return RacerRatingEvaluationTerm(self.year + 1, EvaluationPeriodType.FIRST_HALF)

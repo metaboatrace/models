@@ -5,9 +5,15 @@
 #   pre: false
 #   features: []
 #   all-features: false
+#   with-sources: false
 
 -e file:.
 annotated-types==0.5.0
+    # via pydantic
 pydantic==2.0.3
+    # via metaboatrace-models
 pydantic-core==2.3.0
+    # via pydantic
 typing-extensions==4.7.1
+    # via pydantic
+    # via pydantic-core

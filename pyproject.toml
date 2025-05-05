@@ -12,6 +12,15 @@ readme = "README.md"
 requires-python = ">= 3.11"
 license = "MIT"
 
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.10.1",
+    "black>=23.7.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "codecov>=2.1.13"
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

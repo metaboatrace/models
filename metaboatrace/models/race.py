@@ -29,6 +29,17 @@ class WinningTrick(Enum):
     NUKI = 5
     MEGUMARE = 6
 
+    def valid_courses(self) -> set[int]:
+        """Returns a set of valid course numbers (1-6) based on the winning trick."""
+        if self == WinningTrick.NIGE:
+            return {1}
+        elif self in {WinningTrick.SASHI, WinningTrick.MAKURI}:
+            return {2, 3, 4, 5, 6}
+        elif self == WinningTrick.MAKURIZASHI:
+            return {3, 4, 5, 6}
+        else:
+            return {1, 2, 3, 4, 5, 6}
+
 
 class Disqualification(Enum):
     CAPSIZE = 1

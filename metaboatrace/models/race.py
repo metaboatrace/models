@@ -111,7 +111,7 @@ class BoatSetting(_RaceEntryIdentifier):
 
 
 class Odds(_RaceIdentifier, _BettingMixin):
-    ratio: float = Field(None, ge=0, le=9999.0)
+    ratio: Optional[float] = Field(None, ge=0, le=9999.0)
 
 
 class Payoff(_RaceIdentifier, _BettingMixin):

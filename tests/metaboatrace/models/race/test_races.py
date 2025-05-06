@@ -3,7 +3,7 @@ from datetime import date, datetime
 import pytest
 from pydantic import ValidationError
 
-from metaboatrace.models.race import RaceInformation, Weather, WeatherCondition
+from metaboatrace.models.race import RaceInformation, Weather, WeatherCondition, WinningTrick
 from metaboatrace.models.stadium import StadiumTelCode
 
 
@@ -125,3 +125,18 @@ def test_weather_condition(  # type: ignore
     else:
         with pytest.raises(ValidationError):
             WeatherCondition(**data)
+
+
+@pytest.mark.parametrize(
+    "winning_trick, expected_courses",
+    [
+        (WinningTrick.NIGE, {1}),
+        (WinningTrick.SASHI, {2, 3, 4, 5, 6}),
+        (WinningTrick.MAKURI, {2, 3, 4, 5, 6}),
+        (WinningTrick.MAKURIZASHI, {3, 4, 5, 6}),
+        (WinningTrick.NUKI, {1, 2, 3, 4, 5, 6}),
+        (WinningTrick.MEGUMARE, {1, 2, 3, 4, 5, 6}),
+    ],
+)
+def test_winning_trick_valid_courses(winning_trick, expected_courses):  # type: ignore
+    assert winning_trick.valid_courses() == expected_courses

@@ -128,15 +128,15 @@ def test_weather_condition(  # type: ignore
 
 
 @pytest.mark.parametrize(
-    "trick, expected_courses",
+    "winning_trick, expected_courses",
     [
-        (WinningTrick.NIGE, [1]),
-        (WinningTrick.SASHI, [2, 3, 4, 5, 6]),
-        (WinningTrick.MAKURI, [2, 3, 4, 5, 6]),
-        (WinningTrick.MAKURIZASHI, [3, 4, 5, 6]),
-        (WinningTrick.NUKI, [1, 2, 3, 4, 5, 6]),
-        (WinningTrick.MEGUMARE, [1, 2, 3, 4, 5, 6]),
+        (WinningTrick.NIGE, {1}),
+        (WinningTrick.SASHI, {2, 3, 4, 5, 6}),
+        (WinningTrick.MAKURI, {2, 3, 4, 5, 6}),
+        (WinningTrick.MAKURIZASHI, {3, 4, 5, 6}),
+        (WinningTrick.NUKI, {1, 2, 3, 4, 5, 6}),
+        (WinningTrick.MEGUMARE, {1, 2, 3, 4, 5, 6}),
     ],
 )
-def test_winning_trick_valid_courses(trick, expected_courses):  # type: ignore
-    assert trick.valid_courses() == expected_courses
+def test_winning_trick_valid_courses(winning_trick, expected_courses):  # type: ignore
+    assert winning_trick.valid_courses() == expected_courses

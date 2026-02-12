@@ -4,8 +4,8 @@
 ![Coverage](https://img.shields.io/codecov/c/github/metaboatrace/models.svg)
 ![PyPI version](https://img.shields.io/pypi/v/metaboatrace.models.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Python version](https://img.shields.io/badge/python-3.11-blue.svg)
-![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![Python version](https://img.shields.io/badge/python-3.13-blue.svg)
+![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)
 
 ## 概要
 
@@ -26,3 +26,11 @@ source .venv/bin/activate
 ```
 
 ※ `uv` が事前にインストールされていること
+
+## ブランチ戦略
+
+このリポジトリは [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) を採用している。
+
+- `main` ブランチを唯一の常設ブランチとする
+- 作業はトピックブランチで行い、PR を経て `main` にマージする
+- リリースは Git タグで管理する

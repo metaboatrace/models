@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Any
 
 import pytest
 from pydantic import ValidationError
@@ -14,8 +15,8 @@ from metaboatrace.models.boat import BoatPerformance, MotorPerformance, StadiumT
         (50.0, 101.0, False),  # invalid trio_rate
     ],
 )
-def test_boat_performance(quinella_rate, trio_rate, expected):  # type: ignore
-    boat_data = {
+def test_boat_performance(quinella_rate: float, trio_rate: float, expected: bool) -> None:
+    boat_data: dict[str, Any] = {
         "stadium_tel_code": StadiumTelCode.FUKUOKA,
         "recorded_date": date.today(),
         "number": 1,
@@ -32,7 +33,7 @@ def test_boat_performance(quinella_rate, trio_rate, expected):  # type: ignore
         assert boat.trio_rate == boat_data["trio_rate"]
     else:
         with pytest.raises(ValidationError):
-            boat = BoatPerformance(**boat_data)
+            BoatPerformance(**boat_data)
 
 
 @pytest.mark.parametrize(
@@ -44,7 +45,7 @@ def test_boat_performance(quinella_rate, trio_rate, expected):  # type: ignore
     ],
 )
 def test_motor_performance(quinella_rate: float, trio_rate: float, expected: bool) -> None:
-    motor_data = {
+    motor_data: dict[str, Any] = {
         "stadium_tel_code": StadiumTelCode.FUKUOKA,
         "recorded_date": date.today(),
         "number": 1,
@@ -61,4 +62,4 @@ def test_motor_performance(quinella_rate: float, trio_rate: float, expected: boo
         assert motor.trio_rate == motor_data["trio_rate"]
     else:
         with pytest.raises(ValidationError):
-            motor = MotorPerformance(**motor_data)
+            MotorPerformance(**motor_data)

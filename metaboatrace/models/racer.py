@@ -1,6 +1,5 @@
 from datetime import date
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, StrictInt
 
@@ -27,13 +26,13 @@ class Racer(BaseModel):
     registration_number: StrictInt
     last_name: str
     first_name: str = ""
-    gender: Optional[Gender] = None
-    term: Optional[StrictInt] = None
-    birth_date: Optional[date] = None
-    height: Optional[StrictInt] = None
-    born_prefecture: Optional[Prefecture] = None
-    branch: Optional[Branch] = None
-    current_rating: Optional[RacerRank] = None
+    gender: Gender | None = None
+    term: StrictInt | None = None
+    birth_date: date | None = None
+    height: StrictInt | None = None
+    born_prefecture: Prefecture | None = None
+    branch: Branch | None = None
+    current_rating: RacerRank | None = None
 
 
 class RacerCondition(BaseModel):

@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from enum import Enum
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel, Field, StrictInt, field_validator
 
@@ -90,8 +90,8 @@ class RaceInformation(_RaceIdentifier):
 class WeatherCondition(_RaceIdentifier):
     in_performance: bool
     weather: Weather
-    wavelength: Optional[float]
-    wind_angle: Optional[float] = Field(None, ge=0, le=360)
+    wavelength: float | None
+    wind_angle: float | None = Field(None, ge=0, le=360)
     wind_velocity: float
     air_temperature: float
     water_temperature: float
@@ -114,15 +114,15 @@ class CircumferenceExhibitionRecord(_RaceEntryIdentifier):
 
 
 class BoatSetting(_RaceEntryIdentifier):
-    boat_number: Optional[int] = None
-    motor_number: Optional[int] = None
-    tilt: Optional[float] = Field(None, ge=-0.5, le=3.0)
-    is_new_propeller: Optional[bool] = None
+    boat_number: int | None = None
+    motor_number: int | None = None
+    tilt: float | None = Field(None, ge=-0.5, le=3.0)
+    is_new_propeller: bool | None = None
     motor_parts_exchanges: list[tuple[MotorParts, StrictInt]]
 
 
 class Odds(_RaceIdentifier, _BettingMixin):
-    ratio: Optional[float] = Field(None, ge=0, le=9999.0)
+    ratio: float | None = Field(None, ge=0, le=9999.0)
 
 
 class Payoff(_RaceIdentifier, _BettingMixin):
@@ -130,9 +130,9 @@ class Payoff(_RaceIdentifier, _BettingMixin):
 
 
 class RaceRecord(_RaceEntryIdentifier):
-    start_course: Optional[StrictInt] = Field(None, ge=1, le=6)
-    arrival: Optional[StrictInt] = Field(None, ge=1, le=6)
-    total_time: Optional[float] = None
-    start_time: Optional[float] = None
-    winning_trick: Optional[WinningTrick] = None
-    disqualification: Optional[Disqualification] = None
+    start_course: StrictInt | None = Field(None, ge=1, le=6)
+    arrival: StrictInt | None = Field(None, ge=1, le=6)
+    total_time: float | None = None
+    start_time: float | None = None
+    winning_trick: WinningTrick | None = None
+    disqualification: Disqualification | None = None

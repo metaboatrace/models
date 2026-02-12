@@ -1,9 +1,8 @@
 from datetime import date
 from enum import Enum
-from typing import Any, Dict, Optional
+from typing import Self
 
 from pydantic import BaseModel, Field, StrictInt, model_validator
-from typing_extensions import Self
 
 
 class StadiumTelCode(Enum):
@@ -81,9 +80,9 @@ class EventHoldingStatus(Enum):
 
 class EventHolding(BaseModel):
     stadium_tel_code: StadiumTelCode
-    date: Optional[date]
+    date: date | None
     status: EventHoldingStatus
-    progress_day: Optional[int] = None  # HACK: 最終日は-1で表現
+    progress_day: int | None = None  # HACK: 最終日は-1で表現
 
     @model_validator(mode="after")
     def validate_status_and_progress_day(self) -> Self:

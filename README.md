@@ -29,8 +29,4 @@ source .venv/bin/activate
 
 ## ブランチ戦略
 
-このリポジトリは [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) を採用している。
-
-- `main` ブランチを唯一の常設ブランチとする
-- 作業はトピックブランチで行い、PR を経て `main` にマージする
-- リリースは Git タグで管理する
+[GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) を採用している。

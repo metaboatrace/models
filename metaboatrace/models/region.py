@@ -164,7 +164,7 @@ class PrefectureFactory:
         if "大分" in name:
             return Prefecture.OITA
         if "宮崎" in name:
-            return Prefecture.MIYAGI
+            return Prefecture.MIYAZAKI
         if "鹿児島" in name:
             return Prefecture.KAGOSHIMA
         if "沖縄" in name:

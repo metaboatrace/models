@@ -5,23 +5,54 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v4
+        uses: astral-sh/setup-uv@v8.2.0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
 
-      - name: Build
+      # pyproject.toml のバージョンに対応するタグが既にあれば publish 済みとみなしてスキップする。
+      # main への push はバージョン更新時とは限らないため、このガードで重複 publish を防ぐ。
+      - name: Check whether this version is already released
+        id: check
+        run: |
+          VERSION=$(grep -m1 '^version' pyproject.toml | sed 's/.*"\(.*\)".*/\1/')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "v$VERSION" >/dev/null 2>&1; then
+            echo "released=true" >> "$GITHUB_OUTPUT"
+            echo "v$VERSION is already released; skipping publish."
+          else
+            echo "released=false" >> "$GITHUB_OUTPUT"
+            echo "v$VERSION is not released yet; will publish."
+          fi
+
+      - name: Build the package
+        if: steps.check.outputs.released == 'false'
         run: uv build
 
-      - name: Publish
-        run: uv publish -t ${{ secrets.PYPI_API_TOKEN }}
+      - name: Publish the package
+        if: steps.check.outputs.released == 'false'
+        run: uv publish --token ${{ secrets.PYPI_API_TOKEN }}
+
+      # publish 成功後にのみタグと GitHub Release を作成し、PyPI と GitHub をズレなく揃える。
+      - name: Create tag and GitHub Release
+        if: steps.check.outputs.released == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.check.outputs.version }}" \
+            --target "${{ github.sha }}" \
+            --title "metaboatrace.models v${{ steps.check.outputs.version }} stable" \
+            --generate-notes

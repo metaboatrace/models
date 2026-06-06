@@ -9,6 +9,8 @@ from metaboatrace.models.region import Branch, BranchFactory, Prefecture, Prefec
         ("北海道", Prefecture.HOKKAIDO),
         ("東京", Prefecture.TOKYO),
         ("沖縄", Prefecture.OKINAWA),
+        ("宮城", Prefecture.MIYAGI),
+        ("宮崎", Prefecture.MIYAZAKI),
     ],
 )
 def test_prefecture_factory(name, expected):  # type: ignore

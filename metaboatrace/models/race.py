@@ -33,12 +33,11 @@ class WinningTrick(Enum):
         """Returns a set of valid course numbers (1-6) based on the winning trick."""
         if self == WinningTrick.NIGE:
             return {1}
-        elif self in {WinningTrick.SASHI, WinningTrick.MAKURI}:
+        if self in {WinningTrick.SASHI, WinningTrick.MAKURI}:
             return {2, 3, 4, 5, 6}
-        elif self == WinningTrick.MAKURIZASHI:
+        if self == WinningTrick.MAKURIZASHI:
             return {3, 4, 5, 6}
-        else:
-            return {1, 2, 3, 4, 5, 6}
+        return {1, 2, 3, 4, 5, 6}
 
 
 class Disqualification(Enum):
@@ -70,6 +69,7 @@ class _BettingMixin(BaseModel):
     betting_numbers: list[int]
 
     @field_validator("betting_numbers")
+    @classmethod
     def validate_betting_numbers(cls, betting_numbers: list[int]) -> list[int]:
         if len(betting_numbers) > 3:
             raise ValueError("Betting numbers should have at most 3 elements")

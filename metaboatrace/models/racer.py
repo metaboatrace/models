@@ -75,11 +75,9 @@ class RacerRatingEvaluationTerm:
     def prev(self) -> "RacerRatingEvaluationTerm":
         if self.period_type == EvaluationPeriodType.FIRST_HALF:
             return RacerRatingEvaluationTerm(self.year - 1, EvaluationPeriodType.SECOND_HALF)
-        else:
-            return RacerRatingEvaluationTerm(self.year, EvaluationPeriodType.FIRST_HALF)
+        return RacerRatingEvaluationTerm(self.year, EvaluationPeriodType.FIRST_HALF)
 
     def next(self) -> "RacerRatingEvaluationTerm":
         if self.period_type == EvaluationPeriodType.FIRST_HALF:
             return RacerRatingEvaluationTerm(self.year, EvaluationPeriodType.SECOND_HALF)
-        else:
-            return RacerRatingEvaluationTerm(self.year + 1, EvaluationPeriodType.FIRST_HALF)
+        return RacerRatingEvaluationTerm(self.year + 1, EvaluationPeriodType.FIRST_HALF)
